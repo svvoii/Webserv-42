@@ -19,7 +19,7 @@
 #include <ostream>
 #include "../Node.h"
 
-enum Methods {GET, POST, DELETE};
+enum Methods {NONE, GET, POST, DELETE};
 
 struct Limit {
     class LimitExceptException : public std::exception {};
