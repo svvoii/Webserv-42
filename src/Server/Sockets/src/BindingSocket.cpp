@@ -1,5 +1,10 @@
 #include "../includes/BindingSocket.hpp"
 
+BindingSocket::BindingSocket() : SimpleSocket() {}
+
+BindingSocket::BindingSocket(const BindingSocket &other)
+: _bindStatus(other._bindStatus) {}
+
 /*
 ** This class is similar to ConnectingSocket class except that it uses
 ** `bind()` instead of `connect()` in the `connectToNetwork()` method.
@@ -12,10 +17,7 @@ BindingSocket::BindingSocket(int domain, int service, int protocol, int port, u_
 	: SimpleSocket(domain, service, protocol, port, interface) {
 
 	std::cout << MAGENTA << "\t[ BindingSocket ] constructor called. " << RESET << "server_socket_fd: [" << getSocketFD() << "]" << std::endl;
-
-	_bindStatus = 0;
-
-	connectToNetwork(this->getSocketFD(), this->getAddress());
+    connect();
 }
 
 BindingSocket::~BindingSocket() {
@@ -27,6 +29,11 @@ BindingSocket::~BindingSocket() {
 int		BindingSocket::getBindStatus() const {
 
 	return (this->_bindStatus);
+}
+
+void	BindingSocket::connect() {
+    _bindStatus = 0;
+    connectToNetwork(this->getSocketFD(), this->getAddress());
 }
 
 /*
@@ -48,3 +55,4 @@ void	BindingSocket::connectToNetwork(int socket_fd, struct sockaddr_in address) 
 	// error check
 	this->testConnection(_bindStatus);
 }
+

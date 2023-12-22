@@ -13,11 +13,17 @@
 class BindingSocket : public SimpleSocket {
 	private:
 
-		int	_bindStatus;
+    int	_bindStatus;
 
-	public:
+public:
 
-		BindingSocket(int domain, int service, int protocol, int port, u_long interface);
+        BindingSocket();
+        BindingSocket(const BindingSocket &);
+		BindingSocket(int domain,
+                      int service,
+                      int protocol,
+                      int port,
+                      u_long interface);
 		~BindingSocket();
 
 		// Getters
@@ -25,6 +31,8 @@ class BindingSocket : public SimpleSocket {
 
 		// This method is virtual in parent and must be implemented by the child class. 
 		void	connectToNetwork(int socket_fd, struct sockaddr_in address);
+
+    void connect();
 };
 
 #endif

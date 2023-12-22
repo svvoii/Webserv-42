@@ -2,44 +2,16 @@
 #include "../includes/ServersManager.hpp"
 
 ServersManager::ServersManager(const Config &config)
-: _config(config) {
-    std::cout << MAGENTA << "\tServersManager default constructor called" << RESET << std::endl;
+: _config(config) {}
 
-    initServers();
-
-    run();
-}
-
-ServersManager::~ServersManager() {
-
-	std::cout << RED << "\tServersManager destructor called" << RESET << std::endl;
-}
-
-void	ServersManager::initConfig() {
-
-	// This function is for testing purposes only !!!
-	// The hardcoded data in `Config` class shall be parsed from the config file.
-//	_config.setServersData();
-//	_numberOfServers = _config.numberOfServers;
-//
-//	std::cout << YELLOW << "[!] Number of servers: " << _numberOfServers << RESET << std::endl;
-
-}
+ServersManager::~ServersManager() {}
 
 void	ServersManager::initServers() {
-
-//	_servers.reserve(_numberOfServers);
-
-
-    _servers.push_back(Server(*_config.getConstServers().begin()));
-    _servers.back().initServerSocket();
-
-//    for (l_sc_c_it it = _config.getConstServers().begin();
-//        it != _config.getConstServers().end(); ++it) {
-//
-//        _servers.push_back(Server(*it));
-//        _servers.back().initServerSocket();
-//    }
+    for (l_sc_c_it it = _config.getConstServers().begin();
+        it != _config.getConstServers().end(); ++it) {
+        _servers.push_back(Server(*it));
+        _servers.back().initServerSocket();
+    }
 }
 
 void	ServersManager::_initFdSets() {

@@ -253,7 +253,7 @@ googletest does **not** reuse the same test fixture for multiple tests. Any
 changes one test makes to the fixture do not affect other tests.
 
 As an example, let's write tests for a FIFO queue class named `Queue`, which has
-the following interface:
+the following _interface:
 
 ```c++
 template <typename E>  // E is the element type.
@@ -369,7 +369,7 @@ If a fatal failure happens the subsequent steps will be skipped.
 {: .callout .important}
 > IMPORTANT: You must **not** ignore the return value of `RUN_ALL_TESTS()`, or
 > you will get a compiler error. The rationale for this design is that the
-> automated testing service determines whether a test has passed based on its
+> automated testing _service determines whether a test has passed based on its
 > exit code, not on its stdout/stderr output; thus your `main()` function must
 > return the value of `RUN_ALL_TESTS()`.
 >
@@ -480,4 +480,4 @@ NOTE: `ParseGUnitFlags()` is deprecated in favor of `InitGoogleTest()`.
     other systems (e.g. Windows). In most tests this is not an issue as usually
     the assertions are done in the main thread. If you want to help, you can
     volunteer to implement the necessary synchronization primitives in
-    `gtest-port.h` for your platform.
+    `gtest-_port.h` for your platform.

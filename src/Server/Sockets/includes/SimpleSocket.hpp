@@ -40,27 +40,48 @@
 class SimpleSocket {
 	private:
 
-		int					_socket_fd; // this will be the file descriptor returned by `socket()`
+        int					_socket_fd; // this will be the file descriptor returned by `socket()`
 		struct sockaddr_in	_address;
-	
-	public:
 
-		SimpleSocket(int domain, int service, int protocol, int port, u_long interface);
+        int _domain;
+        int _service;
+        int _protocol;
+        int _port;
+        u_long _interface;
+public:
+        SimpleSocket();
+        SimpleSocket(const SimpleSocket &);
+        SimpleSocket(int domain,
+                     int service,
+                     int aProtocol,
+                     int port,
+                     u_long anInterface);
+
+//		SimpleSocket(int domain, int service, int protocol, int port, u_long interface);
 		~SimpleSocket();
 
 		// Getters
-		int					getSocketFD() const;
-		struct sockaddr_in	getAddress() const;
+
+        int getSocketFD() const;
+        const sockaddr_in &getAddress() const;
+        int getDomain() const;
+        int getService() const;
+        int getProtocol() const;
+        int getPort() const;
+        u_long getAnInterface() const;
 
 		// Setters
 		// void				setSocketFD(int socket_fd);
 
+        void Init(int domain, int service, int aProtocol, int port,
+                  u_long anInterface);
 		// This must be implemented by the child class. 
 		// In the implementation either `bind()` or `connect()` to be used (SERVER vs CLIENT)
 		virtual void	connectToNetwork(int socket_fd, struct sockaddr_in address) = 0;
 
 		// This will simply check the return value of `bind()` or `connect()` and exit if < 0
 		void			testConnection(int itemToTest);
+
 };
 
 #endif

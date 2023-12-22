@@ -29,7 +29,7 @@
 			- if `error_page` is defined - `304` and show parent's index
 
 - At least 1 `server` block
-	- needs only 1 `listen` directive specifying a valid port - fails if port is wrong
+	- needs only 1 `listen` directive specifying a valid _port - fails if _port is wrong
 	- May have 1 or more `location` directives
 		- Location needs  to have its `address` and at least one of those:
 			- `Address`

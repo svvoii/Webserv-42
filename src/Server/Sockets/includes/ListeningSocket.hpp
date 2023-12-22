@@ -1,6 +1,9 @@
 #ifndef LISTENINGSOCKET_HPP
 #define LISTENINGSOCKET_HPP
 
+#define PROTOCOL 0
+#define BACKLOG 10
+
 #include "BindingSocket.hpp"
 
 /*
@@ -25,17 +28,25 @@ class ListeningSocket : public BindingSocket {
 		int	_listening; // return value of `listen()`
 
 	public:
+        ListeningSocket();
+        ListeningSocket(int domain,
+                        int service,
+                        int protocol,
+                        int port,
+                        u_long interface,
+                        int backlog);
+        ListeningSocket(const ListeningSocket &);
 
-		ListeningSocket(int domain, int service, int protocol, int port, u_long interface,
-			int backlog);
 		// virtual destructor is needed a child class is inheriting from this class
 		virtual ~ListeningSocket();
 
 		// Getters
-		int		getBacklog() const;
-		int		getListening() const;
+        int getBacklog() const;
+        int getListening() const;
 
-		void	startListenToNetwork();
+    void	startListenToNetwork();
+
+    void Init(int port, int backlog);
 };
 
 #endif

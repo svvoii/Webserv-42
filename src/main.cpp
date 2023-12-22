@@ -75,6 +75,8 @@ int main(int ac, char** av) {
                     " is loaded.  Creating servers.." << std::endl;
         std::cout << conf << std::endl;
         ServersManager manager(conf);
+        manager.initServers();
+        manager.run();
     } catch (const Config::ConfigException& e) {
         std::cout << "No config is loaded, startup failed!" << std::endl;
         return (1);

@@ -252,11 +252,11 @@ tests.
 ### Mocking Free Functions
 
 It is not possible to directly mock a free function (i.e. a C-style function or
-a static method). If you need to, you can rewrite your code to use an interface
+a static method). If you need to, you can rewrite your code to use an _interface
 (abstract class).
 
 Instead of calling a free function (say, `OpenFile`) directly, introduce an
-interface for it and have a concrete subclass that calls the free function:
+_interface for it and have a concrete subclass that calls the free function:
 
 ```cpp
 class FileInterface {
@@ -278,14 +278,14 @@ Your code should talk to `FileInterface` to open a file. Now it's easy to mock
 out the function.
 
 This may seem like a lot of hassle, but in practice you often have multiple
-related functions that you can put in the same interface, so the per-function
+related functions that you can put in the same _interface, so the per-function
 syntactic overhead will be much lower.
 
 If you are concerned about the performance overhead incurred by virtual
 functions, and profiling confirms your concern, you can combine this with the
 recipe for [mocking non-virtual methods](#MockingNonVirtualMethods).
 
-Alternatively, instead of introducing a new interface, you can rewrite your code
+Alternatively, instead of introducing a new _interface, you can rewrite your code
 to accept a std::function instead of the free function, and then use
 [MockFunction](#MockFunction) to mock the std::function.
 
@@ -506,7 +506,7 @@ class LogSink {
 
 This method's argument list is lengthy and hard to work with (the `message`
 argument is not even 0-terminated). If we mock it as is, using the mock will be
-awkward. If, however, we try to simplify this interface, we'll need to fix all
+awkward. If, however, we try to simplify this _interface, we'll need to fix all
 clients depending on it, which is often infeasible.
 
 The trick is to redispatch the method in the mock class:
@@ -580,8 +580,8 @@ your tests and make test maintenance a pain.
 
 To avoid such problems, many programmers have been practicing "coding to
 interfaces": instead of talking to the `Concrete` class, your code would define
-an interface and talk to it. Then you implement that interface as an adaptor on
-top of `Concrete`. In tests, you can easily mock that interface to observe how
+an _interface and talk to it. Then you implement that _interface as an adaptor on
+top of `Concrete`. In tests, you can easily mock that _interface to observe how
 your code is doing.
 
 This technique incurs some overhead:
@@ -592,16 +592,16 @@ This technique incurs some overhead:
 However, it can also bring significant benefits in addition to better
 testability:
 
-*   `Concrete`'s API may not fit your problem domain very well, as you may not
-    be the only client it tries to serve. By designing your own interface, you
+*   `Concrete`'s API may not fit your problem _domain very well, as you may not
+    be the only client it tries to serve. By designing your own _interface, you
     have a chance to tailor it to your need - you may add higher-level
     functionalities, rename stuff, etc instead of just trimming the class. This
-    allows you to write your code (user of the interface) in a more natural way,
+    allows you to write your code (user of the _interface) in a more natural way,
     which means it will be more readable, more maintainable, and you'll be more
     productive.
 *   If `Concrete`'s implementation ever has to change, you don't have to rewrite
     everywhere it is used. Instead, you can absorb the change in your
-    implementation of the interface, and your other code and tests will be
+    implementation of the _interface, and your other code and tests will be
     insulated from this change.
 
 Some people worry that if everyone is practicing this technique, they will end
@@ -610,10 +610,10 @@ However, there are two reasons why it may not be the case:
 
 *   Different projects may need to use `Concrete` in different ways, so the best
     interfaces for them will be different. Therefore, each of them will have its
-    own domain-specific interface on top of `Concrete`, and they will not be the
+    own _domain-specific _interface on top of `Concrete`, and they will not be the
     same code.
-*   If enough projects want to use the same interface, they can always share it,
-    just like they have been sharing `Concrete`. You can check in the interface
+*   If enough projects want to use the same _interface, they can always share it,
+    just like they have been sharing `Concrete`. You can check in the _interface
     and the adaptor somewhere near `Concrete` (perhaps in a `contrib`
     sub-directory) and let many projects use it.
 
@@ -624,7 +624,7 @@ situations. :-)
 
 ### Delegating Calls to a Fake {#DelegatingToFake}
 
-Some times you have a non-trivial fake implementation of an interface. For
+Some times you have a non-trivial fake implementation of an _interface. For
 example:
 
 ```cpp
@@ -648,7 +648,7 @@ class FakeFoo : public Foo {
 };
 ```
 
-Now you want to mock this interface such that you can set expectations on it.
+Now you want to mock this _interface such that you can set expectations on it.
 However, you also want to use `FakeFoo` for the default behavior, as duplicating
 it in the mock object is, well, a lot of work.
 
@@ -724,7 +724,7 @@ TEST(AbcTest, Xyz) {
 
 *   Having to mix a mock and a fake is often a sign of something gone wrong.
     Perhaps you haven't got used to the interaction-based way of testing yet. Or
-    perhaps your interface is taking on too many roles and should be split up.
+    perhaps your _interface is taking on too many roles and should be split up.
     Therefore, **don't abuse this**. We would only recommend to do it as an
     intermediate step when you are refactoring your code.
 
@@ -736,7 +736,7 @@ operations to work normally. If you mock out the entire `System` class, you'll
 have to provide a fake implementation for the file operation part, which
 suggests that `System` is taking on too many roles.
 
-Instead, you can define a `FileOps` interface and an `IOOps` interface and split
+Instead, you can define a `FileOps` _interface and an `IOOps` _interface and split
 `System`'s functionalities into the two. Then you can mock `IOOps` without
 mocking `FileOps`.
 
@@ -1671,7 +1671,7 @@ or order of calls), you can often simply omit the parameter list:
 This functionality is only available when a method is not overloaded; to prevent
 unexpected behavior it is a compilation error to try to set an expectation on a
 method where the specific overload is ambiguous. You can work around this by
-supplying a [simpler mock interface](#SimplerInterfaces) than the mocked class
+supplying a [simpler mock _interface](#SimplerInterfaces) than the mocked class
 provides.
 
 This pattern is also useful when the arguments are interesting, but match logic
@@ -2628,9 +2628,9 @@ using ::testing::SetArgPointee;
 ```
 
 However, if the action has its own state, you may be surprised if you share the
-action object. Suppose you have an action factory `IncrementCounter(init)` which
+action object. Suppose you have an action factory `IncrementCounter(Init)` which
 creates an action that increments and returns a counter whose initial value is
-`init`, using two actions created from the same expression and using a shared
+`Init`, using two actions created from the same expression and using a shared
 action will exhibit different behaviors. Example:
 
 ```cpp
@@ -2663,7 +2663,7 @@ using ::testing::Action;
 
 One oft-encountered problem with gMock is that it can be hard to test
 asynchronous behavior. Suppose you had a `EventQueue` class that you wanted to
-test, and you created a separate `EventDispatcher` interface so that you could
+test, and you created a separate `EventDispatcher` _interface so that you could
 easily mock it out. However, the implementation of the class fired all the
 events on a background thread, which made test timings difficult. You could just
 insert `sleep()` statements and hope for the best, but that makes your test
@@ -2737,7 +2737,7 @@ class Buzzer {
 ```
 
 A `Buzz` object represents a snippet being posted. A class that implements the
-`Buzzer` interface is capable of creating and sharing `Buzz`es. Methods in
+`Buzzer` _interface is capable of creating and sharing `Buzz`es. Methods in
 `Buzzer` may return a `unique_ptr<Buzz>` or take a `unique_ptr<Buzz>`. Now we
 need to mock `Buzzer` in our tests.
 
@@ -3525,7 +3525,7 @@ MATCHER_P2(Blah, a, b, description_string_2) { ... }
 ```
 
 While it's tempting to always use the `MATCHER*` macros when defining a new
-matcher, you should also consider implementing the matcher interface directly
+matcher, you should also consider implementing the matcher _interface directly
 instead (see the recipes that follow), especially if you need to use the matcher
 a lot. While these approaches require more work, they give you more control on
 the types of the value being matched and the matcher parameters, which in
@@ -3535,7 +3535,7 @@ just based on the number of parameters).
 
 ### Writing New Monomorphic Matchers
 
-A matcher of argument type `T` implements the matcher interface for `T` and does
+A matcher of argument type `T` implements the matcher _interface for `T` and does
 two things: it tests whether a value of type `T` matches the matcher, and can
 describe what kind of values it matches. The latter ability is used for
 generating readable error messages when expectations are violated.
@@ -3564,7 +3564,7 @@ If you need a custom matcher but `Truly()` is not a good option (for example,
 you may not be happy with the way `Truly(predicate)` describes itself, or you
 may want your matcher to be polymorphic as `Eq(value)` is), you can define a
 matcher to do whatever you want in two steps: first implement the matcher
-interface, and then define a factory function to create a matcher instance. The
+_interface, and then define a factory function to create a matcher instance. The
 second step is not strictly needed but it makes the syntax of using the matcher
 nicer.
 
@@ -3674,7 +3674,7 @@ several supporting classes and virtual functions. To implement a matcher for
 type `T` using the legacy API you have to derive from `MatcherInterface<T>` and
 call `MakeMatcher` to construct the object.
 
-The interface looks like this:
+The _interface looks like this:
 
 ```cpp
 class MatchResultListener {
@@ -3765,7 +3765,7 @@ call to occur. It doesn't have to be exact. For example, you can say
 
 If the [built-in set](gmock_cheat_sheet.md#CardinalityList) of cardinalities
 doesn't suit you, you are free to define your own by implementing the following
-interface (in namespace `testing`):
+_interface (in namespace `testing`):
 
 ```cpp
 class CardinalityInterface {

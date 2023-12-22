@@ -1,36 +1,36 @@
 #include "../includes/ListeningSocket.hpp"
 
-ListeningSocket::ListeningSocket(
-	int domain, 
-	int service, 
-	int protocol, 
-	int port, 
-	u_long interface,
-	int backlog)
-	: BindingSocket(domain, service, protocol, port, interface) {
+ListeningSocket::ListeningSocket() : BindingSocket() {}
 
-	std::cout << MAGENTA << "\t[ ListeningSocket ] constructor called. " << RESET << "server_socket_fd: [" << getSocketFD() << "]" << std::endl;
+ListeningSocket::ListeningSocket(const ListeningSocket & other)
+        : _backlog(other._backlog),
+          _listening(other._listening) {}
 
-	this->_backlog = backlog;
-	this->_listening = 0;
+ListeningSocket::ListeningSocket(int domain,
+	                                int service,
+	                                int protocol,
+	                                int port,
+	                                u_long interface,
+	                                int backlog)
+	: BindingSocket(domain, service, protocol, port, interface),
+    _backlog(backlog),
+    _listening(0) {
+    startListenToNetwork();
+}
 
-	startListenToNetwork();
+void ListeningSocket::Init(int port, int backlog) {
+    _backlog = backlog;
+    _listening = 0;
+    SimpleSocket *ss_ptr = static_cast<SimpleSocket*>(this);
+    BindingSocket *bs_ptr = static_cast<BindingSocket*>(this);
+    ss_ptr->Init(AF_INET, SOCK_STREAM, PROTOCOL, port, INADDR_ANY);
+    bs_ptr->connect();
+    startListenToNetwork();
 }
 
 ListeningSocket::~ListeningSocket() {
 
 	std::cout << RED << "\t[~] ListeningSocket destructor called." << RESET << std::endl;
-}
-
-// Getters
-int		ListeningSocket::getBacklog() const {
-
-	return this->_backlog;
-}
-
-int		ListeningSocket::getListening() const {
-
-	return this->_listening;
 }
 
 void	ListeningSocket::startListenToNetwork() {
@@ -40,3 +40,13 @@ void	ListeningSocket::startListenToNetwork() {
 
 	testConnection(_listening);
 }
+
+int ListeningSocket::getBacklog() const {
+    return _backlog;
+}
+
+int ListeningSocket::getListening() const {
+    return _listening;
+}
+
+

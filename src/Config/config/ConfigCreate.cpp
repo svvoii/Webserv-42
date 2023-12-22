@@ -31,7 +31,7 @@ void Config::CreateSrvConfigs(Node& root) {
         if (root.child_nodes_[i].main_[0] == "server") {
             servers_.push_front(ServerConfiguration());
             CheckServer(root.child_nodes_[i], servers_.front());
-            if (HasServerWithSameNameOrPort(servers_.front()))
+            if (HasServerWithSamePort(servers_.front()))
                 ThrowSyntaxError("Server name and port needs to be unique "
                                  "amongst all servers");
         } else {
@@ -69,11 +69,11 @@ void Config::CheckServer(Node &node, ServerConfiguration &current) {
     }
 }
 
-bool Config::HasServerWithSameNameOrPort(const ServerConfiguration &config) {
+bool Config::HasServerWithSamePort(const ServerConfiguration &config) {
     for (l_sc_c_it it = servers_.begin(); it != servers_.end(); ++it) {
         if (it != servers_.begin()) {
-            if (it->server_name_ == config.server_name_)
-                return true;
+//            if (it->server_name_ == config.server_name_)
+//                return true;
             if (it->port_ == config.port_)
                 return true;
         }

@@ -12,7 +12,7 @@ arguments) directly in gMock.
 
 The problem is that in general, there is *no way* for a mock object to know how
 many arguments are passed to the variadic method, and what the arguments' types
-are. Only the *author of the base class* knows the protocol, and we cannot look
+are. Only the *author of the base class* knows the _protocol, and we cannot look
 into his or her head.
 
 Therefore, to mock such a function, the *user* must teach the mock object how to
@@ -136,7 +136,7 @@ interesting information.
 
 ### I get a heapcheck failure when using a mock object, but using a real object is fine. What can be wrong?
 
-Does the class (hopefully a pure interface) you are mocking have a virtual
+Does the class (hopefully a pure _interface) you are mocking have a virtual
 destructor?
 
 Whenever you derive from a base class, make sure its destructor is virtual.
@@ -308,8 +308,8 @@ You can, but you need to make some changes.
 
 In general, if you find yourself needing to mock a static function, it's a sign
 that your modules are too tightly coupled (and less flexible, less reusable,
-less testable, etc). You are probably better off defining a small interface and
-call the function through that interface, which then can be easily mocked. It's
+less testable, etc). You are probably better off defining a small _interface and
+call the function through that _interface, which then can be easily mocked. It's
 a bit of work initially, but usually pays for itself quickly.
 
 This Google Testing Blog
@@ -359,7 +359,7 @@ uninteresting calls, you should investigate what's going on. To make your life
 easier, gMock dumps the stack trace when an uninteresting call is encountered.
 From that you can figure out which mock function it is, and how it is called.
 
-### I want to define a custom action. Should I use Invoke() or implement the ActionInterface interface?
+### I want to define a custom action. Should I use Invoke() or implement the ActionInterface _interface?
 
 Either way is fine - you want to choose the one that's more convenient for your
 circumstance.

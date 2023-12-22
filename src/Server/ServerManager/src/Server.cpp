@@ -2,39 +2,31 @@
 
 Server::Server(const ServerConfiguration &config)
 : config_(config),
-  _serverSocket(NULL),
   _serverFd(-1),
   _port(config.port_),
-  _serverName(config.server_name_) {
-    (void)config_;
-}
+  _serverName(config.server_name_) {}
 
 Server::Server(const Server &other)
 : config_(other.config_),
   _serverSocket(other._serverSocket),
   _serverFd(other._serverFd),
   _port(other._port),
-  _serverName(other._serverName) {
-    (void)config_;
-}
+  _serverName(other._serverName) {}
 
-
-
-Server::~Server() {
-
-	std::cout << RED << "\tServer destructor called" << RESET << std::endl;
-
-	delete _serverSocket;
-}
+Server::~Server() {}
 
 void	Server::initServerSocket() {
-    _port = 4281;
-	_serverSocket = new ListeningSocket(AF_INET, SOCK_STREAM, PROTOCOL, _port, INADDR_ANY, BACKLOG);
-	_serverFd = _serverSocket->getSocketFD();
+//	_serverSocket = ListeningSocket(AF_INET,
+//                                    SOCK_STREAM,
+//                                    PROTOCOL,
+//                                    _port,
+//                                    INADDR_ANY,
+//                                    BACKLOG);
+    _serverSocket.Init(_port, BACKLOG);
+	_serverFd = _serverSocket.getSocketFD();
 }
 
-ListeningSocket	*Server::getServerSocket() const {
-
+const ListeningSocket & Server::getServerSocket() const {
 	return _serverSocket;
 }
 

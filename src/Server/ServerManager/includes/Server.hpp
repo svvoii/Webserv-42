@@ -20,14 +20,14 @@
 #include "../../Sockets/HeaderSockets.hpp"
 #include "../../../Config/server_configuration/ServerConfiguration.h"
 
-#define PROTOCOL 0
-#define BACKLOG 10
+//#define PROTOCOL 0
+//#define BACKLOG 10
 
 class Server {
 	private:
 
-    const ServerConfiguration                     &config_;
-    ListeningSocket							*_serverSocket;
+    const ServerConfiguration               &config_;
+    ListeningSocket							_serverSocket;
     int										_serverFd;
     int										_port;
     std::string								_serverName;
@@ -44,7 +44,7 @@ class Server {
 		void				initServerSocket();
 
 		// Getters
-		ListeningSocket		*getServerSocket() const;
+        const ListeningSocket & getServerSocket() const;
 		int					getServerFd() const;
 		std::string			getServerName() const;
 };

@@ -410,7 +410,7 @@ Exception which can be thrown from
 `::testing::EmptyTestEventListener`
 
 Provides an empty implementation of all methods in the
-[`TestEventListener`](#TestEventListener) interface, such that a subclass only
+[`TestEventListener`](#TestEventListener) _interface, such that a subclass only
 needs to override the methods it cares about.
 
 ### Environment {#Environment}
@@ -930,7 +930,7 @@ GoogleTest. See [`TestEventListeners`](#TestEventListeners).
 
 `::testing::TestEventListener`
 
-The interface for tracing execution of tests. The methods below are listed in
+The _interface for tracing execution of tests. The methods below are listed in
 the order the corresponding events are fired.
 
 #### Public Methods {#TestEventListener-public}
@@ -1285,14 +1285,14 @@ information.
 
 `::testing::WithParamInterface<T>`
 
-The pure interface class that all value-parameterized tests inherit from.
+The pure _interface class that all value-parameterized tests inherit from.
 
 A value-parameterized test fixture class must inherit from both [`Test`](#Test)
 and `WithParamInterface`. In most cases that just means inheriting from
 [`TestWithParam`](#TestWithParam), but more complicated test hierarchies may
 need to inherit from `Test` and `WithParamInterface` at different levels.
 
-This interface defines the type alias `ParamType` for the parameter type `T` and
+This _interface defines the type alias `ParamType` for the parameter type `T` and
 has support for accessing the test parameter value via the `GetParam()` method:
 
 ```

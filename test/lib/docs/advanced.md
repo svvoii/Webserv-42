@@ -1020,7 +1020,7 @@ number of situations, for example:
 *   You have a piece of code whose behavior is affected by one or more
     command-line flags. You want to make sure your code performs correctly for
     various values of those flags.
-*   You want to test different implementations of an OO interface.
+*   You want to test different implementations of an OO _interface.
 *   You want to test your code over various inputs (a.k.a. data-driven testing).
     This feature is easy to abuse, so please exercise your good sense when doing
     it!
@@ -1029,7 +1029,7 @@ number of situations, for example:
 
 To write value-parameterized tests, first you should define a fixture class. It
 must be derived from both `testing::Test` and `testing::WithParamInterface<T>`
-(the latter is a pure interface), where `T` is the type of your parameter
+(the latter is a pure _interface), where `T` is the type of your parameter
 values. For convenience, you can just derive the fixture class from
 `testing::TestWithParam<T>`, which itself is derived from both `testing::Test`
 and `testing::WithParamInterface<T>`. `T` can be any copyable type. If it's a
@@ -1161,11 +1161,11 @@ You can see [sample7_unittest.cc] and [sample8_unittest.cc] for more examples.
 In the above, we define and instantiate `FooTest` in the *same* source file.
 Sometimes you may want to define value-parameterized tests in a library and let
 other people instantiate them later. This pattern is known as *abstract tests*.
-As an example of its application, when you are designing an interface you can
+As an example of its application, when you are designing an _interface you can
 write a standard suite of abstract tests (perhaps using a factory function as
-the test parameter) that all implementations of the interface are expected to
-pass. When someone implements the interface, they can instantiate your suite to
-get all the interface-conformance tests for free.
+the test parameter) that all implementations of the _interface are expected to
+pass. When someone implements the _interface, they can instantiate your suite to
+get all the _interface-conformance tests for free.
 
 To define abstract tests, you should organize your code like this:
 
@@ -1237,7 +1237,7 @@ INSTANTIATE_TEST_SUITE_P(
 
 ## Typed Tests
 
-Suppose you have multiple implementations of the same interface and want to make
+Suppose you have multiple implementations of the same _interface and want to make
 sure that all of them satisfy some common requirements. Or, you may have defined
 several types that are supposed to conform to the same "concept" and you want to
 verify it. In both cases, you want the same test logic repeated for different
@@ -1314,9 +1314,9 @@ you to know the list of types ahead of time. Instead, you can define the test
 logic first and instantiate it with different type lists later. You can even
 instantiate it more than once in the same program.
 
-If you are designing an interface or concept, you can define a suite of
+If you are designing an _interface or concept, you can define a suite of
 type-parameterized tests to verify properties that any valid implementation of
-the interface/concept should have. Then, the author of each implementation can
+the _interface/concept should have. Then, the author of each implementation can
 just instantiate the test suite with their type to verify that it conforms to
 the requirements, without having to write similar tests repeatedly. Here's an
 example:
@@ -1399,7 +1399,7 @@ implementation is often a sign that the class is doing too much. Consider
 extracting an implementation class, and testing it. Then use that implementation
 class in the original class.
 
-If you absolutely have to test non-public interface code though, you can. There
+If you absolutely have to test non-public _interface code though, you can. There
 are two cases to consider:
 
 *   Static functions ( *not* the same as static member functions!) or unnamed
@@ -1664,10 +1664,10 @@ checkpoints to implement a resource leak checker, for example.
 To define a event listener, you subclass either
 [`testing::TestEventListener`](reference/testing.md#TestEventListener) or
 [`testing::EmptyTestEventListener`](reference/testing.md#EmptyTestEventListener)
-The former is an (abstract) interface, where *each pure virtual method can be
+The former is an (abstract) _interface, where *each pure virtual method can be
 overridden to handle a test event* (For example, when a test starts, the
 `OnTestStart()` method will be called.). The latter provides an empty
-implementation of all methods in the interface, such that a subclass only needs
+implementation of all methods in the _interface, such that a subclass only needs
 to override the methods it cares about.
 
 When an event is fired, its context is passed to the handler function as an
@@ -1966,7 +1966,7 @@ your test runner (not part of GoogleTest) needs to do the following:
 1.  Wait for all shards to finish, then collect and report the results.
 
 Your project may have tests that were written without GoogleTest and thus don't
-understand this protocol. In order for your test runner to figure out which test
+understand this _protocol. In order for your test runner to figure out which test
 supports sharding, it can set the environment variable `GTEST_SHARD_STATUS_FILE`
 to a non-existent file path. If a test program supports sharding, it will create
 this file to acknowledge that fact; otherwise it will not create it. The actual
@@ -2217,7 +2217,7 @@ The report format conforms to the following JSON Schema:
 ```
 
 The report uses the format that conforms to the following Proto3 using the
-[JSON encoding](https://developers.google.com/protocol-buffers/docs/proto3#json):
+[JSON encoding](https://developers.google.com/_protocol-buffers/docs/proto3#json):
 
 ```proto
 syntax = "proto3";
@@ -2349,7 +2349,7 @@ IMPORTANT: The exact format of the JSON document is subject to change.
 
 #### Detecting Test Premature Exit
 
-Google Test implements the _premature-exit-file_ protocol for test runners to
+Google Test implements the _premature-exit-file_ _protocol for test runners to
 catch any kind of unexpected exits of test programs. Upon start, Google Test
 creates the file which will be automatically deleted after all work has been
 finished. Then, the test runner can check if this file exists. In case the file

@@ -94,9 +94,9 @@ combined to form new matchers, while the `EXPECT_NE`, etc, macros cannot be
 easily combined. Therefore we want to invest more in the matchers than in the
 `EXPECT_XX()` macros.
 
-## I need to test that different implementations of an interface satisfy some common requirements. Should I use typed tests or value-parameterized tests?
+## I need to test that different implementations of an _interface satisfy some common requirements. Should I use typed tests or value-parameterized tests?
 
-For testing various implementations of the same interface, either typed tests or
+For testing various implementations of the same _interface, either typed tests or
 value-parameterized tests can get it done. It's really up to you the user to
 decide which is more convenient for you, depending on your particular case. Some
 rough guidelines:
@@ -118,7 +118,7 @@ rough guidelines:
     and pass it as the third parameter to INSTANTIATE_TEST_SUITE_P to have more
     useful output.
 *   When using typed tests, you need to make sure you are testing against the
-    interface type, not the concrete types (in other words, you want to make
+    _interface type, not the concrete types (in other words, you want to make
     sure `implicit_cast<MyInterface*>(my_concrete_impl)` works, not just that
     `my_concrete_impl` works). It's less likely to make mistakes in this area
     when using value-parameterized tests.
@@ -135,8 +135,8 @@ can much more easily decide which one to use the next time.
 now. Please use `EqualsProto`, etc instead.
 
 `ProtocolMessageEquals` and `ProtocolMessageEquiv` were redefined recently and
-are now less tolerant of invalid protocol buffer definitions. In particular, if
-you have a `foo.proto` that doesn't fully qualify the type of a protocol message
+are now less tolerant of invalid _protocol buffer definitions. In particular, if
+you have a `foo.proto` that doesn't fully qualify the type of a _protocol message
 it references (e.g. `message<Bar>` where it should be `message<blah.Bar>`), you
 will now get run-time errors like:
 

@@ -3,7 +3,7 @@
 ## What Is gMock?
 
 When you write a prototype or test, often it's not feasible or wise to rely on
-real objects entirely. A **mock object** implements the same interface as a real
+real objects entirely. A **mock object** implements the same _interface as a real
 object (so it can be used as one), but lets you specify at run time how it will
 be used and what it should do (which methods will be called? in which order? how
 many times? with what arguments? what will they return? etc).
@@ -30,7 +30,7 @@ jMock/EasyMock does to Java (well, more or less).
 
 When using gMock,
 
-1.  first, you use some simple macros to describe the interface you want to
+1.  first, you use some simple macros to describe the _interface you want to
     mock, and they will expand to the implementation of your mock class;
 2.  next, you create some mock objects and specify its expectations and behavior
     using an intuitive syntax;
@@ -78,7 +78,7 @@ following problems is bothering you:
 
 We encourage you to use gMock as
 
-*   a *design* tool, for it lets you experiment with your interface design early
+*   a *design* tool, for it lets you experiment with your _interface design early
     and often. More iterations lead to better designs!
 *   a *testing* tool to cut your tests' outbound dependencies and probe the
     interaction between your module and its collaborators.
@@ -99,7 +99,7 @@ update all your golden images.). It would be too painful if all your tests are
 like this. Fortunately, you learned about
 [Dependency Injection](http://en.wikipedia.org/wiki/Dependency_injection) and know the right thing
 to do: instead of having your application talk to the system API directly, wrap
-the API in an interface (say, `Turtle`) and code to that interface:
+the API in an _interface (say, `Turtle`) and code to that _interface:
 
 ```cpp
 class Turtle {
@@ -125,7 +125,7 @@ and `PenDown()`, and control its movement using `Forward()`, `Turn()`, and
 `GoTo()`. Finally, `GetX()` and `GetY()` tell you the current position of the
 turtle.
 
-Your program will normally use a real implementation of this interface. In
+Your program will normally use a real implementation of this _interface. In
 tests, you can use a mock implementation instead. This allows you to easily
 check what drawing primitives your program is calling, with what arguments, and
 in which order. Tests written this way are much more robust (they won't break
@@ -141,7 +141,7 @@ class, relax - gMock turns this task into a fun game! (Well, almost.)
 
 ### How to Define It
 
-Using the `Turtle` interface as example, here are the simple steps you need to
+Using the `Turtle` _interface as example, here are the simple steps you need to
 follow:
 
 *   Derive a class `MockTurtle` from `Turtle`.
@@ -185,7 +185,7 @@ macro will generate the definitions for you. It's that simple!
 ### Where to Put It
 
 When you define a mock class, you need to decide where to put its definition.
-Some people put it in a `_test.cc`. This is fine when the interface being mocked
+Some people put it in a `_test.cc`. This is fine when the _interface being mocked
 (say, `Foo`) is owned by the same person or team. Otherwise, when the owner of
 `Foo` changes it, your test could break. (You can't really expect `Foo`'s
 maintainer to fix every test that uses `Foo`, can you?)
@@ -198,11 +198,11 @@ tests. If `Foo` ever changes, there is only one copy of `MockFoo` to change, and
 only tests that depend on the changed methods need to be fixed.
 
 Another way to do it: you can introduce a thin layer `FooAdaptor` on top of
-`Foo` and code to this new interface. Since you own `FooAdaptor`, you can absorb
+`Foo` and code to this new _interface. Since you own `FooAdaptor`, you can absorb
 changes in `Foo` much more easily. While this is more work initially, carefully
-choosing the adaptor interface can make your code easier to write and more
+choosing the adaptor _interface can make your code easier to write and more
 readable (a net win in the long run), as you can choose `FooAdaptor` to fit your
-specific domain much better than `Foo` does.
+specific _domain much better than `Foo` does.
 
 ## Using Mocks in Tests
 

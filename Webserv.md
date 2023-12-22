@@ -50,8 +50,8 @@ In `src/Config/Config.h`
 
 
 
- 1. The server starts by reading the nginx configuration file, which specifies the port number, server root_ directory, and any other settings.
- 2. The server creates a listener socket and binds it to the port number specified in the configuration file.
+ 1. The server starts by reading the nginx configuration file, which specifies the _port number, server root_ directory, and any other settings.
+ 2. The server creates a listener socket and binds it to the _port number specified in the configuration file.
  3. The server enters an infinite loop, waiting for incoming connections using poll().
  4. When a client connects to the server, the server accepts the connection and creates a new thread or worker process to handle the request_.
  5. The server reads the incoming request_ from the client and parses it to determine the requested resource and any additional information, such as headers or query parameters.
@@ -84,7 +84,7 @@ IP blocking, and request_ filtering.
 configuration file manually, following the syntax and semantics of the nginx configuration file format.
 
 20. The server extracts the relevant settings from the configuration file and 
-uses them to configure the server's behavior, such as the server's root_ directory, port number, and other settings.
+uses them to configure the server's behavior, such as the server's root_ directory, _port number, and other settings.
 
 
 
