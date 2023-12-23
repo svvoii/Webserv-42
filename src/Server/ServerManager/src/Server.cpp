@@ -16,12 +16,6 @@ Server::Server(const Server &other)
 Server::~Server() {}
 
 void	Server::initServerSocket() {
-//	_serverSocket = ListeningSocket(AF_INET,
-//                                    SOCK_STREAM,
-//                                    PROTOCOL,
-//                                    _port,
-//                                    INADDR_ANY,
-//                                    BACKLOG);
     _serverSocket.Init(_port, BACKLOG);
 	_serverFd = _serverSocket.getSocketFD();
 }

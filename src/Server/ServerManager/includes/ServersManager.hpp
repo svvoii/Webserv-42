@@ -41,7 +41,7 @@ class ServersManager {
 	private:
 
 		const Config                &_config;
-		std::vector<Server>			_servers;
+		std::list<Server>			_servers;
 
 		fd_set						_recv_fd_pool; // To store the socket FDs of the clients
 		fd_set						_send_fd_pool; // To store the socket FDs of the clients

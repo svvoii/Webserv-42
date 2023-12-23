@@ -22,17 +22,18 @@ void	ServersManager::_initFdSets() {
 	int	serverFd = 0;
 	_max_fd = 0;
 
-	for (size_t i = 0; i < _config.getConstServers().size(); i++) {
+    for (std::list<Server>::iterator it = _servers.begin();
+         it != _servers.end(); ++it) {
 
-		serverFd = _servers[i].getServerFd();
+        serverFd = it->getServerFd();
 
-		fcntl_ret = fcntl(serverFd, F_SETFL, O_NONBLOCK);
-		checkErrorAndExit(fcntl_ret, "fcntl() failed. Exiting..");
+        fcntl_ret = fcntl(serverFd, F_SETFL, O_NONBLOCK);
+        checkErrorAndExit(fcntl_ret, "fcntl() failed. Exiting..");
 
-		_addToSet(serverFd, &_recv_fd_pool);
+        _addToSet(serverFd, &_recv_fd_pool);
 
-		_max_fd = serverFd;
-	}
+        _max_fd = serverFd;
+    }
 }
 
 void	ServersManager::_addToSet(int fd, fd_set *set) {
@@ -135,7 +136,7 @@ void	ServersManager::_accept(int fd) {
 		return ;
 	}
 
-	std::cout << timeStamp() << GREEN << "[+] New connection to [" << _servers[serverFd - 3].getServerName() << "] fd:[" << serverFd << "], client fd:[" << fd << "], IP:[" << inet_ntoa(address.sin_addr) << "]" << RESET << std::endl;
+//	std::cout << timeStamp() << GREEN << "[+] New connection to [" << _servers[serverFd - 3].getServerName() << "] fd:[" << serverFd << "], client fd:[" << fd << "], IP:[" << inet_ntoa(address.sin_addr) << "]" << RESET << std::endl;
 
 	_addToSet(fd, &_recv_fd_pool);
 
